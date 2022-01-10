@@ -17,7 +17,7 @@
 FROM continuumio/miniconda3:4.10.3
 
 # Upgrade all packages to meet security criteria
-RUN apt-get update && apt-get upgrade -y && apt-get install sudo && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y && apt-get install sudo libjpeg-dev zlib1g-dev make automake gcc g++ subversion python3-dev -y && rm -rf /var/lib/apt/lists/*
 
 RUN useradd --create-home max && echo "max ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 RUN chown -R max:max /opt/conda
@@ -25,5 +25,5 @@ USER max
 WORKDIR /home/max
 RUN mkdir assets
 COPY . .
-RUN conda install python==3.7.11
+RUN conda install python==3.9.7
 RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r requirements.txt
